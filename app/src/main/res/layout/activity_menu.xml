@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffa2a2"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="ListView"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/picAllType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#9b95fff4"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="Pic All type"
+        android:textSize="30dp" />
+</LinearLayout>
