@@ -11,6 +11,9 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.example.zone.glidestudy.glideUtils.MyUrlLoader;
 import com.example.zone.glidestudy.other.Images;
+import com.example.zone.glidestudy.utils.CompressUtils;
+import com.example.zone.glidestudy.utils.FileUtils;
+import com.example.zone.glidestudy.utils.SampleUtils;
 
 /**
  * Created by Administrator on 2016/6/20.
@@ -21,6 +24,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         customUrl();
+        saveFile();
+    }
+
+    private void saveFile() {
+        if(!FileUtils.getFile("1.jpg").exists()){
+            CompressUtils.saveBitmap(FileUtils.getFile("1.jpg").getPath(),
+                    SampleUtils.load(this,R.drawable.abcd).bitmap());
+        }
     }
 
     private void customUrl() {

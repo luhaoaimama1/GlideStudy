@@ -45,38 +45,17 @@ public class AllTypeActivity extends AppCompatActivity {
         rv.setLayoutManager(new GridLayoutManager(this,2));
         List<Type> list = Arrays.asList(Type.values());
 
-        if(!FileUtils.getFile("1.jpg").exists()){
-            CompressUtils.saveBitmap(FileUtils.getFile("1.jpg").getPath(),
-                    SampleUtils.load(this,R.drawable.abcd).bitmap());
-        }
-
         adapter=new QuickRcvAdapter<Type>(this,list){
 
 
             @Override
             public void fillData(Helper<Type> helper, Type item, boolean itemChanged, int layoutId) {
-//                Glide.with(getContext()) .load(item)
-//                        .placeholder(R.drawable.ic_stub).dontAnimate()
-//                        .into((ImageView)helper. getView(R.id.iv));
+                helper.setText(R.id.tv,item.toString());
                 switch (item) {
                     case HTTP:
                         Glide.with(getContext()) .load(Images.imageThumbUrls[0])
                                 .skipMemoryCache(true)
                                 .placeholder(R.drawable.ic_stub).dontAnimate()
-                                .into((ImageView)helper. getView(R.id.iv));
-                        break;
-                    case Thumbnail:
-//                        Glide.with(getContext()).load("https://img.alicdn.com/imgextra/i4/705956171/TB2WgYJfVXXXXb4XXXXXXXXXXXX_!!705956171.gif")
-                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg").asGif()
-                                .thumbnail(0.1f)//成功了
-                                .skipMemoryCache(true)
-                                .into((ImageView)helper. getView(R.id.iv));
-                        break;
-                    case ThumbnailHigh:
-//                        DrawableRequestBuilder<String> a=Glide.with(getContext()).load(Images.imageThumbUrls[0]) ;
-                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg")
-                                .thumbnail(Glide.with(getContext()).load(Images.imageThumbUrls[0]))//成功了
-                                .skipMemoryCache(true)
                                 .into((ImageView)helper. getView(R.id.iv));
                         break;
                     case File:
@@ -133,6 +112,22 @@ public class AllTypeActivity extends AppCompatActivity {
                                 .placeholder(R.drawable.ic_stub).dontAnimate()
                                 .error(R.drawable.ic_error)
                                 .into((ImageView)helper. getView(R.id.iv));
+                        helper.setText(R.id.tv,"mp4:就算了把 感觉管的太宽了~");
+                        break;
+
+                    case Thumbnail:
+//                        Glide.with(getContext()).load("https://img.alicdn.com/imgextra/i4/705956171/TB2WgYJfVXXXXb4XXXXXXXXXXXX_!!705956171.gif")
+                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg").asGif()
+                                .thumbnail(0.1f)//成功了
+                                .skipMemoryCache(true)
+                                .into((ImageView)helper. getView(R.id.iv));
+                        break;
+                    case ThumbnailHigh:
+//                        DrawableRequestBuilder<String> a=Glide.with(getContext()).load(Images.imageThumbUrls[0]) ;
+                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg")
+                                .thumbnail(Glide.with(getContext()).load(Images.imageThumbUrls[0]))//成功了
+                                .skipMemoryCache(true)
+                                .into((ImageView)helper. getView(R.id.iv));
                         break;
                     case Error:
                         Glide.with(getContext()).load(FileUtils.getFile("1111.jpg"))
@@ -141,7 +136,7 @@ public class AllTypeActivity extends AppCompatActivity {
                                 .into((ImageView)helper. getView(R.id.iv));
                         break;
                 }
-                helper.setText(R.id.tv,item.toString());
+
             }
 
             @Override
