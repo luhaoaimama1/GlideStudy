@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.zone.glidestudy.glideUtils.MyUrlLoader;
 import com.example.zone.glidestudy.other.Images;
 import com.zone.adapter.QuickManager;
 import com.zone.adapter.QuickRcvAdapter;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         List<String> list = Arrays.asList(Images.imageThumbUrls);

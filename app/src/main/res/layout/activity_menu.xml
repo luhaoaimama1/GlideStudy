@@ -4,7 +4,15 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="提示:此页面包含custom URL"
+        android:textSize="18dp" />
     <Button
         android:id="@+id/lv"
         android:layout_width="match_parent"
@@ -15,7 +23,7 @@
         android:onClick="onClick"
         android:padding="5dp"
         android:text="ListView"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/picAllType"
@@ -27,5 +35,16 @@
         android:onClick="onClick"
         android:padding="5dp"
         android:text="Pic All type"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
+    <Button
+        android:id="@+id/target"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#9bd782ff"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:text="target"
+        android:textSize="20dp" />
 </LinearLayout>

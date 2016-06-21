@@ -8,8 +8,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableRequestBuilder;
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.zone.glidestudy.other.Images;
 import com.example.zone.glidestudy.utils.CompressUtils;
 import com.example.zone.glidestudy.utils.FileUtils;
@@ -27,7 +32,7 @@ import java.util.List;
  */
 public class AllTypeActivity extends AppCompatActivity {
     public enum Type{
-        HTTP,Thumbnail,File,Resource,Uri,GifLocal,GifHttp,Mp4,Error;
+        HTTP,File,Resource,Uri,GifLocal,GifHttp,Mp4,Thumbnail,ThumbnailHigh,Error;
     }
     private RecyclerView rv;
     private QuickRcvAdapter<Type> adapter;
@@ -39,6 +44,12 @@ public class AllTypeActivity extends AppCompatActivity {
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new GridLayoutManager(this,2));
         List<Type> list = Arrays.asList(Type.values());
+
+        if(!FileUtils.getFile("1.jpg").exists()){
+            CompressUtils.saveBitmap(FileUtils.getFile("1.jpg").getPath(),
+                    SampleUtils.load(this,R.drawable.abcd).bitmap());
+        }
+
         adapter=new QuickRcvAdapter<Type>(this,list){
 
 
@@ -47,10 +58,6 @@ public class AllTypeActivity extends AppCompatActivity {
 //                Glide.with(getContext()) .load(item)
 //                        .placeholder(R.drawable.ic_stub).dontAnimate()
 //                        .into((ImageView)helper. getView(R.id.iv));
-                if(!FileUtils.getFile("1.jpg").exists()){
-                    CompressUtils.saveBitmap(FileUtils.getFile("1.jpg").getPath(),
-                            SampleUtils.load(getContext(),R.drawable.abcd).bitmap());
-                }
                 switch (item) {
                     case HTTP:
                         Glide.with(getContext()) .load(Images.imageThumbUrls[0])
@@ -59,11 +66,17 @@ public class AllTypeActivity extends AppCompatActivity {
                                 .into((ImageView)helper. getView(R.id.iv));
                         break;
                     case Thumbnail:
-                        Glide.with(getContext()).load("https://img.alicdn.com/imgextra/i4/705956171/TB2WgYJfVXXXXb4XXXXXXXXXXXX_!!705956171.gif")
-                                .fitCenter()
+//                        Glide.with(getContext()).load("https://img.alicdn.com/imgextra/i4/705956171/TB2WgYJfVXXXXb4XXXXXXXXXXXX_!!705956171.gif")
+                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg").asGif()
                                 .thumbnail(0.1f)//成功了
                                 .skipMemoryCache(true)
-                                .placeholder(R.drawable.ic_stub).dontAnimate()
+                                .into((ImageView)helper. getView(R.id.iv));
+                        break;
+                    case ThumbnailHigh:
+//                        DrawableRequestBuilder<String> a=Glide.with(getContext()).load(Images.imageThumbUrls[0]) ;
+                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg")
+                                .thumbnail(Glide.with(getContext()).load(Images.imageThumbUrls[0]))//成功了
+                                .skipMemoryCache(true)
                                 .into((ImageView)helper. getView(R.id.iv));
                         break;
                     case File:
@@ -79,6 +92,17 @@ public class AllTypeActivity extends AppCompatActivity {
                     case Uri:
                         Glide.with(getContext()).load(resourceIdToUri(getContext(), R.drawable.uria))
                                 .placeholder(R.drawable.ic_stub).dontAnimate()
+                                .listener(new RequestListener<Uri, GlideDrawable>() {
+                                    @Override
+                                    public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
                                 .into((ImageView)helper. getView(R.id.iv));
                         break;
                     case GifLocal:
@@ -90,7 +114,8 @@ public class AllTypeActivity extends AppCompatActivity {
                                 .into((ImageView)helper. getView(R.id.iv));
                         break;
                     case GifHttp:
-                        Glide.with(getContext()).load("https://img.alicdn.com/imgextra/i4/705956171/TB2WgYJfVXXXXb4XXXXXXXXXXXX_!!705956171.gif").asGif()
+//                        Glide.with(getContext()).load("https://img.alicdn.com/imgextra/i4/705956171/TB2WgYJfVXXXXb4XXXXXXXXXXXX_!!705956171.gif").asGif()
+                        Glide.with(getContext()).load("http://img5.imgtn.bdimg.com/it/u=2462868875,1126990464&fm=21&gp=0.jpg").asGif()
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .skipMemoryCache(true)
                                 .fitCenter()
